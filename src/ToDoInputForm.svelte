@@ -1,7 +1,27 @@
 <script>
-    export let userName
+  import { toDoItems } from "./store.js";
+  import { onMount } from "svelte";
+
+  export let userName;
+  let newItem = "";
+  let newItemInputForm = "";
+
+  onMount(() => {
+    newItemInputForm.focus();
+  });
+
+  function addToList() {
+    $toDoItems = [...$toDoItems, { text: newItem, status: false }];
+    newItem = "";
+  }
 </script>
 
-<h3>
-    {userName}のタスクリスト：
-</h3>
+<input
+  bind:value={newItem}
+  bind:this={newItemInputForm}
+  type="text"
+  placeholder="新しく追加するタスク"
+/>
+<button on:click={addToList}>追加</button>
+
+<h3>{userName}のタスクリスト:</h3>

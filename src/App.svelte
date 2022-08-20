@@ -18,8 +18,7 @@
 
 <main>
   {#if nameEntered}
-    <h1>タスクリストアプリケーションへようこそ、</h1>
-    <h1>{fullName}さん!</h1>
+    <h1>ようこそ、{fullName}さん!</h1>
     <ToDoInputForm userName={fullName} />
     <ToDoList />
   {:else}
