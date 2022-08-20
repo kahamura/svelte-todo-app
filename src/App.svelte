@@ -4,26 +4,36 @@
 
   let nameEntered = false;
 
-  let lastName = "田中";
-  let firstName = "花子";
+  let lastName = "";
+  let firstName = "";
 
   $: fullName = lastName + " " + firstName;
+
+  function handleSubmit() {
+    if (lastName && firstName) {
+      nameEntered = true;
+    }
+  }
 </script>
 
 <main>
   {#if nameEntered}
-    <h1>タスクリストアプリケーションへようこそ、{fullName}さん!</h1>
+    <h1>タスクリストアプリケーションへようこそ、</h1>
+    <h1>{fullName}さん!</h1>
     <ToDoInputForm userName={fullName} />
     <ToDoList />
   {:else}
     <h1>タスクアプリケーションへようこそ！</h1>
     <h3>名前を入力してください。</h3>
-    <div>
-      <input type="text" placeholder="姓" required />
-    </div>
-    <div>
-      <input type="text" placeholder="名" required />
-    </div>
+    <form on:submit|preventDefault={handleSubmit}>
+      <div>
+        <input bind:value={lastName} type="text" placeholder="姓" required />
+      </div>
+      <div>
+        <input bind:value={firstName} type="text" placeholder="名" required />
+      </div>
+      <button type="submit">タスク管理を始める</button>
+    </form>
   {/if}
 </main>
 
@@ -31,7 +41,7 @@
   main {
     text-align: center;
     padding: 1em;
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
   }
 </style>
